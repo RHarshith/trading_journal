@@ -113,7 +113,7 @@ def metrics_per_symbol(df):
     return res
 
 
-if __name__ == "main":
+if __name__ == "__main__":
 
     # Read the tradebook as input
     df = pd.read_csv(zerodha_tradebook_filename)
@@ -139,9 +139,9 @@ if __name__ == "main":
         temp_df = symbol_df[symbol_df['first_buy_date']<dt]
         analytics = metrics(temp_df[temp_df['executed'] == True])
         analytics['session_end'] = dt
-        trading_sessions.append(analytics.to_dict())
+        trading_session_metrics.append(analytics.to_dict())
 
-    metrics_df = pd.DataFrame(trading_sessions)
+    metrics_df = pd.DataFrame(trading_session_metrics)
 
     # Write the journal and the metrics to an excel sheet.
     with pd.ExcelWriter('tradebook.xlsx',engine="openpyxl") as writer:
